@@ -1,0 +1,12 @@
+def build_lrfn(lr_start=0.000008, lr_max=0.000032,lr_min=0.000005, lr_upto_epochs=20, lr_stable_epochs=23, lr_decay=.7):
+    def lrfn(epoch):
+        if epoch < lr_upto_epochs:
+            lr = (lr_max - lr_start) / lr_upto_epochs * epoch + lr_start
+        elif  lr_upto_epochs <= epoch and epoch < lr_stable_epochs:
+            lr = lr_max * 0.8
+        else:
+            lr = ((lr_max - lr_min) * lr_decay**(epoch - lr_stable_epochs)) + lr_min 
+        return lr
+    return lrfn
+lrfn = build_lrfn()
+lr_schedule = tf.keras.callbacks.LearningRateScheduler(lrfn, verbose=1)
