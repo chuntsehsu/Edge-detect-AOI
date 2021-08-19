@@ -1,0 +1,17 @@
+y_or = tf.keras.utils.to_categorical(y,6,dtype='float16')
+x_or = [i for i in x]
+
+def load_and_preprocess_image(path,label):
+  image = tf.io.read_file(path)
+  image = tf.image.decode_png(image, channels=1)
+  image = tf.image.resize(image,target_size)
+  image = tf.image.convert_image_dtype(image, dtype=tf.float16)
+  image = tf.image.random_flip_up_down(image,)
+  image = tf.image.random_flip_left_right(image)
+  image /= 255.
+  return image,label
+
+test = tf.data.Dataset.from_tensor_slices((x_or,y_or))
+test = test.map(load_and_preprocess_image, num_parallel_calls=AUTOTUNE)
+test = test.batch(batch_size)
+test = test.prefetch(buffer_size=AUTOTUNE)
