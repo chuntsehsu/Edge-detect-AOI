@@ -1,0 +1,12 @@
+def resampling(train_index, y):
+  temp = y[train_index].copy()
+  labels, count = np.unique(temp, return_counts=True)
+  new_list = [] 
+  for i in range(len(labels)):
+    idx = np.where(temp == labels[i])[0]
+    tem = np.random.choice(idx,max(count)-count[i],replace=True)
+    new_list = np.append(new_list, train_index[tem])
+
+  new_list = new_list.astype(int)
+  new_train_index = np.append(train_index, new_list)
+  return new_train_index.astype(int)
