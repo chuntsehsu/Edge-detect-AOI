@@ -2,21 +2,21 @@ model = Sequential()
 model.add(layers.BatchNormalization(axis=-1))
 model.add(layers.Conv2D(32, (3,3))) 
 model.add(layers.Activation('relu'))
-model.add(layers.BatchNormalization(axis=-1)) ##
+model.add(layers.BatchNormalization(axis=-1)) 
 
 
 model.add(layers.MaxPooling2D(pool_size=(2,2)))
 model.add(Conv2D(64,(3, 3)))
 model.add(layers.Activation('relu'))
 
-model.add(layers.Conv2D(64, (1, 1))) #64
+model.add(layers.Conv2D(64, (1, 1))) 
 model.add(layers.BatchNormalization(axis=-1))
 model.add(layers.Activation('relu'))
 model.add(layers.MaxPooling2D(pool_size=(2,2)))
 
 
 model.add(layers.Flatten())
-model.add(layers.Dense(64)) #512 #200 #100
+model.add(layers.Dense(64)) 
 model.add(layers.BatchNormalization(axis=-1))
 model.add(layers.Activation('relu'))
 model.add(layers.Dropout(0.5))
